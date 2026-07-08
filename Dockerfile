@@ -1,4 +1,4 @@
-﻿FROM node:20-bookworm-slim
+FROM node:20-bookworm-slim
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium

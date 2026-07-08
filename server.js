@@ -75,13 +75,13 @@ function formatCleanError(errMessage, platformName) {
     else msg = msg.split("\n")[0].trim();
 
     if (msg.includes("DPAPI") || msg.includes("Failed to decrypt")) {
-        return `Browser Security Error: Google Chrome / Edge blocks direct cookie reading on Windows. Please use the "📁 Use Local 'cookies.txt' File" option below!`;
+        return `Browser Security Error: Google Chrome / Edge blocks direct cookie reading on Windows. Please use the "ðŸ“ Use Local 'cookies.txt' File" option below!`;
     }
     if (msg.includes("HTTP Error 403") || msg.includes("age-restricted") || msg.includes("Over 18")) {
-        return `${platformName} Error: This video is age-restricted (18+/NSFW) or private. Please use the "📁 Use Local 'cookies.txt' File" option below!`;
+        return `${platformName} Error: This video is age-restricted (18+/NSFW) or private. Please use the "ðŸ“ Use Local 'cookies.txt' File" option below!`;
     }
     if (msg.includes("Login required") || msg.includes("Private")) {
-        return `${platformName} Error: This account or video is private. Please use the "📁 Use Local 'cookies.txt' File" option below!`;
+        return `${platformName} Error: This account or video is private. Please use the "ðŸ“ Use Local 'cookies.txt' File" option below!`;
     }
     return `${platformName} Error: ${msg}`;
 }
@@ -110,7 +110,7 @@ function getPuppeteerLaunchOptions() {
 
 // --- ENGINE 5: AUTONOMOUS HEADLESS WEB SNIFFER AGENT ---
 async function sniffStreamWithAgent(targetUrl) {
-    console.log(`🤖 [AI Agent] Launching invisible anti-detect browser for: ${targetUrl}`);
+    console.log(`ðŸ¤– [AI Agent] Launching invisible anti-detect browser for: ${targetUrl}`);
     let browser = null;
     try {
         browser = await puppeteer.launch(getPuppeteerLaunchOptions());
@@ -126,13 +126,13 @@ async function sniffStreamWithAgent(targetUrl) {
             const u = req.url();
             // Listen for hidden m3u8 playlists or direct mp4/flv streams
             if (!capturedStreamUrl && (u.includes(".m3u8") || (u.includes(".mp4") && !u.endsWith(".html")))) {
-                console.log(`🤖 [AI Agent] Snatched hidden stream mid-air: ${u.substring(0, 70)}...`);
+                console.log(`ðŸ¤– [AI Agent] Snatched hidden stream mid-air: ${u.substring(0, 70)}...`);
                 capturedStreamUrl = u;
             }
             req.continue();
         });
 
-        console.log("🤖 [AI Agent] Navigating to movie page...");
+        console.log("ðŸ¤– [AI Agent] Navigating to movie page...");
         await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 25000 });
 
         // Simulate human clicks on any play buttons or video frames to trigger stream
@@ -173,7 +173,7 @@ app.get("/api/process", async (req, res) => {
     if (!mediaUrl) return res.status(400).json({ error: "Please provide a valid URL" });
 
     const startTime = Date.now();
-    console.log(`\n⚡ Inspecting link: ${mediaUrl} (Cookie Mode: ${cookieMode})`);
+    console.log(`\nâš¡ Inspecting link: ${mediaUrl} (Cookie Mode: ${cookieMode})`);
 
     // --- ENGINE 1: SPOTIFY METADATA BRIDGE ---
     if (/spotify\.com\/track\//i.test(mediaUrl)) {
@@ -185,7 +185,7 @@ app.get("/api/process", async (req, res) => {
             const imgMatch = html.match(/<meta property="og:image" content="([^"]+)"/i);
 
             const songTitle = titleMatch ? titleMatch[1] : "Spotify Song";
-            const artistRaw = descMatch ? descMatch[1].split("·")[0].trim() : "Spotify Artist";
+            const artistRaw = descMatch ? descMatch[1].split("Â·")[0].trim() : "Spotify Artist";
             const fullQuery = `${artistRaw} - ${songTitle}`;
 
             return res.json({
@@ -237,7 +237,7 @@ app.get("/api/process", async (req, res) => {
         try { await axios.get(mediaUrl, { headers: { "User-Agent": "Mozilla/5.0" }, timeout: 3000 }); }
         catch (fastErr) {
             if (fastErr.response?.status === 403 || fastErr.response?.status === 429) {
-                return res.status(400).json({ error: "Reddit Error: This post is age-restricted (18+/NSFW). Please use the '📁 Use Local cookies.txt File' option below!" });
+                return res.status(400).json({ error: "Reddit Error: This post is age-restricted (18+/NSFW). Please use the 'ðŸ“ Use Local cookies.txt File' option below!" });
             }
         }
     }
@@ -315,7 +315,7 @@ app.get("/api/process", async (req, res) => {
                     directDownloadUrl: sniffResult.streamUrl
                 });
             } catch (agentErr) {
-                console.error("🤖 [AI Agent] Sniff failed:", agentErr.message);
+                console.error("ðŸ¤– [AI Agent] Sniff failed:", agentErr.message);
                 return res.status(400).json({ 
                     error: `Autonomous Agent Error: Could not sniff an active stream. Make sure the link is an exact movie playback page, or copy the .m3u8 stream using F12.` 
                 });
@@ -384,5 +384,5 @@ app.get("/api/download", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 5-Engine Universal & Autonomous Sniffer Server running at http://localhost:${PORT}`);
+    console.log(`ðŸš€ 5-Engine Universal & Autonomous Sniffer Server running at http://localhost:${PORT}`);
 });
