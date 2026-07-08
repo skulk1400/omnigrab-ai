@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniGrab AI — Universal Stream Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Ambient Light Orbs -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <div class="top-bar">
+        <div class="engine-badge">⚡ 5-Engine AI Powered</div>
+        <button id="theme-toggle" class="theme-btn" title="Toggle Dark/Light Mode">🌓 Theme</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🌌</span>
+                <span class="logo-text">OmniGrab AI</span>
+            </div>
+            <h1>The Universal Media Engine</h1>
+            <p>Paste any link from YouTube, Spotify, TikTok, Twitter, or streaming web portals.</p>
+        </header>
+
+        <main class="downloader-card">
+            <form id="download-form">
+                <div class="input-group">
+                    <input 
+                        type="url" 
+                        id="media-url" 
+                        placeholder="Paste media link or movie URL..." 
+                        required 
+                    />
+                    <button type="button" id="paste-btn" title="Paste from clipboard">📋 Paste</button>
+                    <button type="submit" id="submit-btn">
+                        <span>Inspect Link</span>
+                    </button>
+                </div>
+
+                <!-- Quick Test Chips -->
+                <div class="quick-chips">
+                    <span>Quick Test:</span>
+                    <button type="button" class="chip" data-url="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">🌸 Direct Video</button>
+                    <button type="button" class="chip" data-url="https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT">🎵 Spotify Song</button>
+                    <button type="button" class="chip" data-url="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3">🦖 Direct Audio</button>
+                </div>
+
+                <!-- Cookie / Authentication Mode Selector -->
+                <div class="auth-bar">
+                    <label for="cookie-mode">🔓 Authentication / Private Media Mode:</label>
+                    <select id="cookie-mode">
+                        <option value="none">🌐 Standard Public Mode (No Cookies)</option>
+                        <option value="chrome">🦊 Auto-Read Login from Google Chrome</option>
+                        <option value="edge">🟦 Auto-Read Login from Microsoft Edge</option>
+                        <option value="firefox">🔥 Auto-Read Login from Mozilla Firefox</option>
+                        <option value="brave">🦁 Auto-Read Login from Brave Browser</option>
+                        <option value="file">📁 Use Local 'cookies.txt' File</option>
+                    </select>
+                </div>
+            </form>
+
+            <div id="status-message" class="status hidden"></div>
+
+            <div id="result-box" class="result-box hidden">
+                <div class="media-preview" id="preview-container"></div>
+
+                <div class="badges" id="badges-container">
+                    <span class="badge" id="type-badge">🎬 Video</span>
+                    <span class="badge" id="author-badge" class="hidden">👤 Author</span>
+                    <span class="badge" id="duration-badge" class="hidden">⏱️ 0:00</span>
+                    <span class="badge" id="size-badge">📦 0 MB</span>
+                </div>
+
+                <div class="rename-box">
+                    <label for="custom-filename">Save file as:</label>
+                    <input type="text" id="custom-filename" placeholder="my-video.mp4" />
+                </div>
+
+                <div class="media-details">
+                    <a id="download-btn" class="btn-primary shimmer-btn" href="#" download>
+                        <span>Download High-Res Media</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by OmniGrab AI • Built with Node.js, Express & Puppeteer</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
